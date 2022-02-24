@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/favicon.ico?v=rMlKOnvxlK" />
+    <title>Lemon Server</title>
+  </head>
+  <style>
+    code {
+      border: 1px solid #000033;
+      background-color: #eee;
+      padding: 10px;
+      font: 300 12px tahoma;
+      display: block;
+    }
+  </style>
+  <body>
+    <div>Server is up and running!</div>
+    <br />
+    <em>Interactive</em> API Documentation can be found at
+    <a href="/api-docs">/api-docs</a>
+    <p>
+      If you used <strong>docker-compose up</strong>, Angular App should be at
+      <a href="http://localhost:8080">http://localhost:8080</a>.
+    </p>
+    <p>
+      To create users either use <a href="/api-dockes">/api-docs</a> or
+      <a href="https://www.getpostman.com">Postman</a> (or similiar) and POST the
+      following data
+    </p>
+    <code>
+      POST http://localhost:3000/user <br />
+      Headers: Content-Type application/json <br />
+      Body: raw <br />
+      {
+      <br />
+      "email": "jadirjsjunior@gmail.com", <br />
+      "firtName": "Jadir", <br />
+      "lastName": "Junior", <br />
+      "role": "Developer Javascript" <br />
+      }<br />
+    </code>
+    <p>
+      More information can be found on Github at
+      <a href="https://github.com/jadir-junior">https://github.com/jadir-junior</a>
+      <img src="lemon.svg" width="12px" alt="Lemon Logo" /> <br />
+      <div>
+          <span style="vertical-align: top; font-weight: bold;">Powered by</span>
+          <a href="https://www.npmjs.com/package/document-ts">
+              <img width="150px" src="document-ts.png" alt="Document TS" />
+          </a>
+      </div>
+    </p>
+  </body>
+</html>
