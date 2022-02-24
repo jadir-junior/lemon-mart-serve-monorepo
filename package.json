@@ -1,0 +1,25 @@
+{
+  "name": "lemon-mart-serve-monorepo",
+  "version": "1.0.0",
+  "description": "Easy to learn and use full-stack Typescript with Angular",
+  "main": "index.js",
+  "scripts": {
+    "init:env": "init-dev-env generate-dot-env example.env -f && init-dev-env generate-dot-env server-example.env --source=. --target=server -f",
+    "build": "npm run build --prefix ./server && npm run build --prefix ./web-app -- --configuration=lemon-mart-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jadir-junior/lemon-mart-server-monorepo.git"
+  },
+  "keywords": [
+    "angular",
+    "typescript",
+    "node",
+    "mongo"
+  ],
+  "author": "Jadir Junior",
+  "license": "MIT",
+  "devDependencies": {
+    "init-dev-env": "^1.0.0"
+  }
+}
