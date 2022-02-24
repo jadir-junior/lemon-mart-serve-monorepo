@@ -1,3 +1,6 @@
 [submodule "web-app"]
     path = web-app
     url = https://github.com/jadir-junior/lemon-mart.git
+[submodule "webapp"]
+	path = webapp
+	url = https://github.com/jadir-junior/lemon-mart
