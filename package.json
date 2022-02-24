@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "init:env": "init-dev-env generate-dot-env example.env -f && init-dev-env generate-dot-env server-example.env --source=. --target=server -f",
-    "build": "npm run build --prefix ./server && npm run build --prefix ./web-app -- --configuration=lemon-mart-server"
+    "build": "npm run build --prefix ./server && npm run build --prefix ./webapp -- --configuration=lemon-mart-server-monorepo"
   },
   "repository": {
     "type": "git",
