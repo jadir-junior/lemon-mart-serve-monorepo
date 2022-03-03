@@ -3,11 +3,19 @@
   "version": "1.0.0",
   "description": "Easy to learn and use full-stack Typescript with Angular",
   "main": "index.js",
+  "config": {
+    "webAppGitUrl": "https://github.com/jadir-junior/lemon-mart"
+  },
   "scripts": {
     "init:env": "init-dev-env generate-dot-env example.env -f && init-dev-env generate-dot-env server-example.env --source=. --target=server -f",
     "build": "npm run build --prefix ./server && npm run build --prefix ./webapp -- --configuration=lemon-mart-server",
     "start:backend": "docker-compose -f docker-compose.backend.yml up --build",
-    "start:database": "docker-compose -f docker-compose.database.yml up --build"
+    "start:database": "docker-compose -f docker-compose.database.yml up --build",
+    "webapp:clean": "cross-conf-env rimraf webapp && git rm -r --cached webapp",
+    "webapp:init": "cross-conf-env git submodule add $npm_package_config_webAppGitUrl webapp",
+    "postwebapp:init": "git submodule status webapp",
+    "modules:init": "git submodule update --init --recursive",
+    "modules:update": "git submodule update --recursive --remote"
   },
   "repository": {
     "type": "git",
