@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compileOptions": {
+    "declaration": false,
+    "strict": false,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "types": ["node", "jasmine"]
+  }
+}

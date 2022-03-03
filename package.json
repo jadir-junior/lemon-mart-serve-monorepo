@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "init:env": "init-dev-env generate-dot-env example.env -f && init-dev-env generate-dot-env server-example.env --source=. --target=server -f",
-    "build": "npm run build --prefix ./server && npm run build --prefix ./webapp -- --configuration=lemon-mart-server-monorepo"
+    "build": "npm run build --prefix ./server && npm run build --prefix ./webapp -- --configuration=lemon-mart-server",
+    "start:backend": "docker-compose -f docker-compose.backend.yml up --build",
+    "start:database": "docker-compose -f docker-compose.database.yml up --build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jadir-junior/lemon-mart-server-monorepo.git"
+    "url": "git+https://github.com/jadir-junior/lemon-mart-serve-monorepo"
   },
   "keywords": [
     "angular",
