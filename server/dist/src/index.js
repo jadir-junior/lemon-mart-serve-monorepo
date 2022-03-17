@@ -14,9 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Instance = void 0;
 const http_1 = __importDefault(require("http"));
+const document_ts_1 = __importDefault(require("document-ts"));
 const app_1 = require("./app");
 const config_1 = require("./config");
-const document_ts_1 = __importDefault(require("document-ts"));
+const user_service_1 = require("./services/user.service");
 function start() {
     return __awaiter(this, void 0, void 0, function* () {
         console.log('Starting server: ');
@@ -39,6 +40,7 @@ function start() {
             console.log('Initializing default user...');
             yield createIndexes();
             // Seed the database with a demo user. Replace with yout own function to seed admin users
+            yield (0, user_service_1.initializeDemoUser)(process.env.DEMO_EMAIL || '', process.env.DEMO_PASSWORD || '', process.env.DEMO_USERID || '');
             console.log('Done.');
         }));
     });

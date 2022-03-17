@@ -1,8 +1,10 @@
 import http, { Server } from 'http'
 
+import document from 'document-ts'
+
 import { app } from './app'
 import { config } from './config'
-import document from 'document-ts'
+import { initializeDemoUser } from './services/user.service'
 
 export let Instance: Server
 
@@ -32,6 +34,11 @@ async function start() {
     console.log('Initializing default user...')
     await createIndexes()
     // Seed the database with a demo user. Replace with yout own function to seed admin users
+    await initializeDemoUser(
+      process.env.DEMO_EMAIL || '',
+      process.env.DEMO_PASSWORD || '',
+      process.env.DEMO_USERID || ''
+    )
     console.log('Done.')
   })
 }
