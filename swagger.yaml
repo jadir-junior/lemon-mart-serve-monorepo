@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Lemon Mart
+  description: LemonMart API
+  version: 2.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local enviroment
+  - url: https://mystagingserver.com
+    description: Staging enviroment
+  - url: https://myprodserver.com
+    description: Production enviroment
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServerMessage"
+
+  schemas:
+    ServerMessage:
+      type: object
+      properties:
+        message:
+          type: string
+    Role:
+      type: string
+      enum: [none, clerk, cashier, manager]
+
+  parameters:
+    filterParam:
+      in: query
+      name: filter
+      required: false
+      schema:
+        type: string
+      description: Search text to filter the result set by
+
+paths:
+  /v1/login:
+    post:
+      description: Generates a JWT, given correct credentials.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        "200": # Response
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                description: JWT token that contains userId as subject, email and role as data payload
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"

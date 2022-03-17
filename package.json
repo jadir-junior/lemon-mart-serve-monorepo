@@ -36,6 +36,7 @@
   "author": "Jadir Junior",
   "license": "MIT",
   "devDependencies": {
+    "cross-conf-env": "^1.2.1",
     "init-dev-env": "^1.0.0"
   }
 }
