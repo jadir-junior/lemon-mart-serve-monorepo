@@ -5,8 +5,8 @@ import {
   AuthenticationRequiredMessage,
   IncorrectEmailPasswordMessage,
   authenticate,
+  createJwt,
 } from '../../services/auth.service'
-import { createJwt } from '../../services/user.service'
 
 const router = Router()
 

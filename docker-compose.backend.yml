@@ -11,6 +11,7 @@ services:
   server:
     container_name: lemon-mart-server
     build: server
+    restart: always
     environment:
       MONGO_URI: mongodb://database:27017
     ports:

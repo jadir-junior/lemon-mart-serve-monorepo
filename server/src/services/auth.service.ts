@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb'
 
 import { config } from '../config'
 import { Role } from '../models/enums'
-import { User, UserCollection } from '../models/user'
+import { IUser, User, UserCollection } from '../models/user'
 
 export const IncorrectEmailPasswordMessage = 'Incorrect email and/or password'
 export const AuthenticationRequiredMessage = 'Request has not been authenticated'
@@ -16,6 +16,28 @@ interface IJwtPayload {
   iat: number
   exp: number
   sub: string
+}
+
+export function createJwt(user: IUser): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const payload = {
+      email: user.email,
+      role: user.role,
+      picture: user.picture,
+    }
+
+    jwt.sign(
+      payload,
+      config.JwtSecret(),
+      { subject: user._id.toHexString(), expiresIn: '1d' },
+      (err: Error | null, encoded: string | undefined): void => {
+        if (err) {
+          reject(err.message)
+        }
+        resolve(encoded!)
+      }
+    )
+  })
 }
 
 export function authenticate(options?: {
