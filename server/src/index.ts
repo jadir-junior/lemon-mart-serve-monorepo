@@ -1,6 +1,6 @@
 import http, { Server } from 'http'
 
-import document from 'document-ts'
+import * as document from 'document-ts'
 
 import { app } from './app'
 import { config } from './config'
