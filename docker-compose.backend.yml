@@ -1,27 +1,22 @@
-version: "3.7"
+version: '3.9'
 services:
+  database:
+    container_name: lemondb
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - '27017:27017'
   server:
     container_name: lemon-mart-server
     build: server
-    env_file: ./server/.env
+    restart: always
     environment:
-      - MONGO_URI=mongodb://john.smith:g00fy@lemondb:27017/lemon-mart
+      MONGO_URI: mongodb://database:27017
     ports:
-      - "3000:3000"
-    links:
-      - database
+      - '3000:3000'
     depends_on:
       - database
-
-  database:
-    container_name: lemondb
-    image: duluca/minimal-mongo:4.2.2
-    restart: always
-    env_file: .env
-    ports:
-      - "27017:27017"
-    volumes:
-      - "dbdata:/data/db"
-
 volumes:
-  dbdata:
+  mongodb:

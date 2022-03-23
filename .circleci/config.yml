@@ -51,6 +51,72 @@ jobs:
           root: /tmp/workspace
           paths:
               - server
+  build_webapp:
+    docker:
+      - image: circleci/node:lts-browsers
+    working_directory: ~/repo/webapp
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: cd ..; npm run modules:init
+      - restore_cache:
+          keys:
+            - web-modules-{{ checksum "package-lock.json" }}
+
+      - run: npm ci
+      - run: npx ngcc --properties es2015
+
+      - save_cache:
+          key: web-modules-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+
+      - run: npm run style
+      - run: npm run lint
+      - run: npm run build -- --configuration=lemon-mart-server
+
+  test_compose:
+    docker:
+      - image: circleci/node:lts-browsers
+    working_directory: ~/repo
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout:
+          path: ~/repo
+      - run: npm run modules:init
+      - run:
+          name: Copy built server to server/dist folder
+          command: cp -avR /tmp/weorkspace/server/dist/ ./server
+      - run:
+          name: Copy built webapp to webapp/dist folder
+          command: cp -avR /tmp/workspace/dist/ ./webapp
+      - run:
+          name: Restore .env files
+          command: |
+            set +H
+            echo -e $PROJECT_DOT_ENV > .env
+            echo -e $SERVER_DOT_ENV > server/.env
+      - run:
+          name: Compose up
+          command: |
+            set -x
+            docker-compose up -d
+      - run:
+          name: Veriry web app
+          command: |
+            set -x
+            docker run --network container:web jwilder/dockeize -wait http://localhots:80
+            docker run --network container:web appropriate/curl http://localhost:80
+      - run:
+          name: Verify db login with api
+          command: |
+            set -x
+            docker run --network container:lemon-mart-server jwilder/dockerize -wait http://localhost:3000
+            docker run --network container:lemon-mart-server appropriate/curl \
+              -H "accept: application/json" -H "Content-Type: application/json" \
+              -d "$LOGIN_JSON" http://localhost:3000/v1/auth/login
 
 workflows:
   version: 2

@@ -9,6 +9,12 @@
   "scripts": {
     "init:env": "init-dev-env generate-dot-env example.env -f && init-dev-env generate-dot-env server-example.env --source=. --target=server -f",
     "build": "npm run build --prefix ./server && npm run build --prefix ./webapp -- --configuration=lemon-mart-server",
+    "test": "npm test --prefix ./server && npm test --prefix ./webapp -- --watch=false",
+    "prestart": "npm run build && docker-compose build",
+    "start": "docker-compose up",
+    "stop": "docker-compose down",
+    "clean": "docker-compose rm",
+    "clean:all": "docker system prune --volumes",
     "start:backend": "docker-compose -f docker-compose.backend.yml up --build",
     "start:database": "docker-compose -f docker-compose.database.yml up --build",
     "webapp:clean": "cross-conf-env rimraf webapp && git rm -r --cached webapp",
@@ -30,6 +36,7 @@
   "author": "Jadir Junior",
   "license": "MIT",
   "devDependencies": {
+    "cross-conf-env": "^1.2.1",
     "init-dev-env": "^1.0.0"
   }
 }
