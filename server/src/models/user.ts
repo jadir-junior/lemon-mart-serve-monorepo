@@ -30,6 +30,70 @@ export interface IUser extends IDocument {
   phones?: IPhone[]
 }
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Name:
+ *       type: object
+ *       properties:
+ *         first:
+ *           type: string
+ *         middle:
+ *           type: string
+ *         last:
+ *           type: string
+ *       required:
+ *         - first
+ *         - last
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *         email:
+ *           type: string
+ *         name:
+ *           $ref: "#/components/schemas/Name"
+ *         picture:
+ *           type: string
+ *         role:
+ *           $ref: "#/components/schemas/Role"
+ *         userStatus:
+ *           type: boolean
+ *         dateOfBirth:
+ *           type: string
+ *           format: date
+ *         level:
+ *           type: number
+ *         address:
+ *           type: object
+ *           properties:
+ *             line1:
+ *               type: string
+ *             line2:
+ *               type: string
+ *             city:
+ *               type: string
+ *             state:
+ *               type: string
+ *             zip:
+ *               type: string
+ *           required:
+ *             - line1
+ *             - city
+ *             - state
+ *             - zip
+ *         phones:
+ *           type: array
+ *           items:
+ *             $ref: "#/components/schemas/Phone"
+ *       required:
+ *         - email
+ *         - name
+ *         - role
+ *         - userStatus
+ */
 export class User extends Document<IUser> implements IUser {
   static collectionName = 'users'
   private password: string | undefined

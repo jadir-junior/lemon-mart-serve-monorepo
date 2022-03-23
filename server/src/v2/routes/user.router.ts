@@ -9,6 +9,46 @@ import { createNewUser } from '../../services/user.service'
 
 const router = Router()
 
+/**
+ * @swagger
+ * /v2/users:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     description: |
+ *       Searches, sorts, paginates and returns a summary of `User` objects.
+ *     parameters:
+ *       - $ref: '#/components/parameters/filterParam'
+ *       - $ref: '#/components/parameters/skipParam'
+ *       - $ref: '#/components/parameters/limitParam'
+ *       - $ref: '#/components/parameters/sortKeyParam'
+ *     responses:
+ *       "200": # Response
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total:
+ *                   type: integer
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                       fullName:
+ *                         type: string
+ *                       name:
+ *                         $ref: "#/components/schemas/Name"
+ *                       role:
+ *                         $ref: "#/components/schemas/Role"
+ *                     description: Summary of `User` object.
+ */
 router.get(
   '/',
   authenticate({ requiredRole: Role.Manager }),
@@ -26,6 +66,27 @@ router.get(
   }
 )
 
+/**
+ * @swagger
+ * /v2/users:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Create a new `User`
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *        '200':
+ *           description: OK
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 router.post(
   '/',
   authenticate({ requiredRole: Role.Manager }),
@@ -40,6 +101,28 @@ router.post(
   }
 )
 
+/**
+ * @swagger
+ * /v2/users/{id}:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     description: Gets a `User` object by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User's unique id
+ *     responses:
+ *        '200':
+ *           description: OK
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 router.get(
   '/:userId',
   authenticate({
@@ -59,6 +142,34 @@ router.get(
   }
 )
 
+/**
+ * @swagger
+ * /v2/users/{id}:
+ *   put:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Updates an existing `User`
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User's unique id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *        '200':
+ *           description: OK
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 router.put(
   '/:userId',
   authenticate({

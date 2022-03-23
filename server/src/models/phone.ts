@@ -7,6 +7,21 @@ export interface IPhone {
   digits: string
 }
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Phone:
+ *       type: object
+ *       properties:
+ *         type:
+ *           $ref: "#/components/schemas/PhoneType"
+ *         digits:
+ *           type: string
+ *       required:
+ *         - type
+ *         - digits
+ */
 export class Phone implements IPhone, ISerializable {
   constructor(public type = PhoneType.None, public digits = '') {}
 
