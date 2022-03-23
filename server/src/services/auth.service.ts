@@ -49,7 +49,6 @@ export function authenticate(options?: {
 }) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(req.headers)
       res.locals.currentUser = await authenticateHelper(req.headers.authorization, {
         requiredRole: options?.requiredRole,
         permitIfSelf: options?.permitIfSelf
