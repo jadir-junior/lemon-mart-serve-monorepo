@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "lemonmart",
   "version": "1.0.0",
-  "description": "Easy to learn and use full-stack Typescript with Mongo, Express, Angular and Node",
+  "description": "Lemon Mart API",
   "main": "index.js",
   "config": {
     "imageRepo": "jadirjunior/lemon-mart-serve-monorepo",

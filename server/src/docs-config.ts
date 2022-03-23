@@ -1,13 +1,13 @@
-import * as packageJson from '../package.json'
-
 import swaggerJsdoc, { Options } from 'swagger-jsdoc'
+
+import * as packageJson from '../package.json'
 
 const options: Options = {
   swaggerDefinition: {
     openapi: '3.0.1',
     components: {},
     info: {
-      title: packageJson.name,
+      title: 'Lemon Mart',
       version: packageJson.version,
       description: packageJson.description,
     },
@@ -23,7 +23,7 @@ const options: Options = {
       },
     ],
   },
-  apis: ['**/models/*.js', '**/v1/routes/*.js', '**/v2/routes/*.js'],
+  apis: ['**/api.js', '**/models/*.js', '**/v1/**/*.js', '**/v2/**/*.js'],
 }
 
 const specs = swaggerJsdoc(options)
